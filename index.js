@@ -16,7 +16,7 @@ var app = express()
 
 // oauth
 var client = new OAuth(weConfig.appid, weConfig.secret)
-var url = client.getAuthorizeURL('http://115.159.119.199/info', 'state', 'snsapi_userinfo');
+var url = client.getAuthorizeURL('http%3A%2F%2F115.159.119.199%2Finfo', 'state', 'snsapi_userinfo');
 
 app.use(express.query())
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
