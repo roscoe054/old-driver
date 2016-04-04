@@ -1,23 +1,29 @@
-var wechat = require('wechat');
-var config = {
-	token: 'token',
-	appid: 'appid',
-	encodingAESKey: 'encodinAESKey'
-};
+var wechat = require('wechat')
+var express = require('express')
+var wechat = require('wechat')
+var CONFIG = require('./config')
 
-app.use(express.query());
-app.use('/wechat', wechat(config, function(req, res, next) {
+var weConfig = CONFIG || {
+    token: 'token',
+    appid: 'appid',
+    encodingAESKey: 'encodingAESKey'
+}
+
+var app = express()
+
+app.use(express.query())
+app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	// 微信输入信息都在req.weixin上
-	var message = req.weixin;
+	var message = req.weixin
 	if (message.FromUserName === 'diaosi') {
 		// 回复屌丝(普通回复)
-		res.reply('hehe');
+		res.reply('hehe')
 	} else if (message.FromUserName === 'text') {
 		//你也可以这样回复text类型的信息
 		res.reply({
 			content: 'text object',
 			type: 'text'
-		});
+		})
 	} else if (message.FromUserName === 'hehe') {
 		// 回复一段音乐
 		res.reply({
@@ -29,7 +35,7 @@ app.use('/wechat', wechat(config, function(req, res, next) {
 				hqMusicUrl: "http://mp3.com/xx.mp3",
 				thumbMediaId: "thisThumbMediaId"
 			}
-		});
+		})
 	} else {
 		// 回复高富帅(图文回复)
 		res.reply([{
@@ -37,6 +43,8 @@ app.use('/wechat', wechat(config, function(req, res, next) {
 			description: '这是女神与高富帅之间的对话',
 			picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
 			url: 'http://nodeapi.cloudfoundry.com/'
-		}]);
+		}])
 	}
-}));
+}))
+
+app.listen(80)
