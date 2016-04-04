@@ -30,6 +30,7 @@ a{
 
 input{
     border: 0;
+    font-size: 14px;
 }
 
 input:focus{

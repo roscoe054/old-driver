@@ -8,6 +8,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
 }
 
 .title{
@@ -30,13 +31,16 @@ body{
     width: 80%;
     margin-bottom: 12px;
     text-align: center;
+    font-size: 16px;
 }
 
 .btn-submit{
     display: block;
     width: 80%;
     padding: 10px 0;
+    line-height: 18px;
     color: #fff;
+    text-align: center;
     background-color: #387ef5;
 }
 
