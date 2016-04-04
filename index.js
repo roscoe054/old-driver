@@ -57,7 +57,7 @@ app.get('/binding', function(req, res) {
         if(err){
             res.send(JSON.stringify(err))
         } else{
-            res.sendFile(path.join(__dirname + '/binding.html'))
+            res.sendFile(path.join(__dirname + '/binding.html?' + baseInfoQuery))
         }
 	})
 })
