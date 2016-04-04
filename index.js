@@ -4,6 +4,7 @@ var wechat = require('wechat')
 
 // get config
 var weConfig = require('./config')
+var helper = require('./modules/helper')
 
 // create app
 var app = express()
@@ -16,11 +17,10 @@ api.createMenu(menuModel, function(){})
 
 // auto reply
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
-	// 微信输入信息都在req.weixin上
 	var msg = req.weixin
 
     if(msg.MsgType === 'event' && msg.Event === 'subscribe'){
-        res.reply('等你好久了，点击<a href="baidu.com">链接</a>以完成绑定')
+        res.reply('等你好久了！点击<a href="baidu.com">链接</a>以完成绑定(ง •_•)ง')
         next()
     }
 
@@ -44,18 +44,20 @@ var OAuth = require('wechat-oauth')
 var client = new OAuth(weConfig.appid, weConfig.secret)
 app.use(express.query())
 app.get('/info', function(req, res) {
-	client.getAccessToken(req.query.code, function(err, result) {
-		var accessToken = result.data.access_token
-		var openid = result.data.openid
-
-		client.getUser(openid, function(err, baseInfo) {
-			var query = ''
-			Object.keys(baseInfo).forEach(function(infoName) {
-				query += '&' + infoName + '=' + baseInfo[infoName]
-			})
-			res.redirect('/reserve?' + query.slice(1))
-		})
+	helper.getBaseInfo(client, req.query.code, function(err, baseInfo){
+        var query = ''
+        Object.keys(baseInfo).forEach(function(infoName) {
+            query += '&' + infoName + '=' + baseInfo[infoName]
+        })
+        res.redirect('/reserve?' + query.slice(1))
 	})
 })
+
+// binding
+// app.get('/binding', function(req, res) {
+// 	helper.getBaseInfo(client, req.query.code, function(err, baseInfoQuery){
+//         res.redirect('/reserve?' + baseInfoQuery)
+//     })
+// })
 
 app.listen(weConfig.port)
