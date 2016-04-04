@@ -7,11 +7,11 @@
 </head>
 <body>
     <script>
-        // var userInfoArr = decodeURIComponent(location.search.slice(1)).split('&')
-        // userInfoArr.forEach(function(infoItem){
-        //     var infoItemArr = infoItem.split('=')
-        //     document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
-        // })
+        var baseInfo = decodeURIComponent(location.search.slice(1)).split('&')
+        baseInfo.forEach(function(infoItem){
+            var infoItemArr = infoItem.split('=')
+            document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
+        })
 
         // var baseInfo = '{"openid":"o1__FsxGOvh12CjS8ZtZqcwYtZXA","nickname":"Roscoe","sex":1,"language":"zh_CN","city":"Haidian","province":"Beijing","country":"China","headimgurl":"http://wx.qlogo.cn/mmopen/00GYaClAoOptTzkiaWnwtHAYJQP1saQUV7icj2PK4EaTelgGia0ffURWvnvTnPVAC4R0o4AhpiczibnmFCLraFBu3mg/0","privilege":[]}'
         // // var baseInfo = JSON.parse(decodeURIComponent(location.search.slice(1)))
@@ -20,7 +20,7 @@
         // Object.keys(baseInfo).forEach(function(infoName){
         //     document.write(infoName + ': ' + baseInfo[infoName] + '</br>')
         // })
-        document.write(location.search)
+        // document.write(location.search)
     </script>
 </body>
 </html>
