@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,minimum-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport">
+    <title>reserve</title>
+</head>
+<body>
+    <script>
+        var userInfoArr = location.search.slice(1).split('&')
+        userInfoArr.forEach(function(infoItem){
+            var infoItemArr = infoItem.split('=')
+            document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
+        })
+    </script>
+</body>
+</html>

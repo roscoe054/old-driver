@@ -1,5 +1,6 @@
-var wechat = require('wechat')
 var express = require('express')
+var path    = require("path")
+
 var wechat = require('wechat')
 var OAuth = require('wechat-oauth')
 
@@ -58,13 +59,17 @@ app.get('/hello', function(req, res) {
 	res.send('hello')
 })
 
+app.get('/reserve', function(req, res) {
+    res.sendFile(path.join(__dirname + '/reserve.html'))
+})
+
 app.get('/info', function(req, res) {
 	client.getAccessToken(req.query.code, function(err, result) {
 		var accessToken = result.data.access_token
 		var openid = result.data.openid
 
 		client.getUser(openid, function(err, result) {
-			res.send(JSON.stringify(result))
+            res.redirect('/reserve?' + JSON.stringify(result));
 		})
 	})
 })
