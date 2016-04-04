@@ -39,7 +39,6 @@ api.createMenu({
     		"key": "V1001_GOOD"
     	}]
     }]
-    }]
 }, function(){})
 
 app.use(express.query())
