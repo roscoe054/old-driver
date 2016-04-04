@@ -68,8 +68,12 @@ app.get('/info', function(req, res) {
 		var accessToken = result.data.access_token
 		var openid = result.data.openid
 
-		client.getUser(openid, function(err, result) {
-            res.redirect('/reserve?' + JSON.stringify(result));
+		client.getUser(openid, function(err, baseInfo) {
+            var query = ''
+            Object.keys(baseInfo).forEach(function(infoName){
+                query += '&' + infoName + '=' + baseInfo[infoName]
+            })
+            res.redirect('/reserve?' + query.slice(1));
 		})
 	})
 })
