@@ -1,40 +1,20 @@
 var express = require('express')
 var path = require("path")
-
 var wechat = require('wechat')
-var OAuth = require('wechat-oauth')
 
-var CONFIG = require('./config')
+// get config
+var weConfig = require('./config')
 
-var weConfig = CONFIG || {
-	token: 'token',
-	appid: 'appid',
-	secret: 'secret',
-	encodingAESKey: 'encodingAESKey'
-}
-
+// create app
 var app = express()
 
-// oauth
-var client = new OAuth(weConfig.appid, weConfig.secret)
-var url = client.getAuthorizeURL('http%3A%2F%2F115.159.119.199%2Finfo', 'state', 'snsapi_userinfo');
+// menu
+var WechatAPI = require('wechat-api')
+var menuModel = require('./modules/menu')
+var api = new WechatAPI(weConfig.appid, weConfig.secret)
+api.createMenu(menuModel, function(){})
 
-// wechat api
-var WechatAPI = require('wechat-api');
-var api = new WechatAPI(weConfig.appid, weConfig.secret);
-api.createMenu({
-    "button": [{
-        "type": "view",
-        "name": "预定",
-        "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx65cfe45c2c6fad4a&redirect_uri=http://roscoe.cn/info&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
-    }, {
-        "type": "view",
-        "name": "我的",
-        "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx65cfe45c2c6fad4a&redirect_uri=http://roscoe.cn/info&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
-    }]
-}, function(){})
-
-app.use(express.query())
+// auto reply
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	// 微信输入信息都在req.weixin上
 	var message = req.weixin
@@ -46,14 +26,15 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
     }
 }))
 
-app.get('/hello', function(req, res) {
-	res.send('hello')
-})
-
+// test
 app.get('/reserve', function(req, res) {
 	res.sendFile(path.join(__dirname + '/reserve.html'))
 })
 
+// get user base info
+var OAuth = require('wechat-oauth')
+var client = new OAuth(weConfig.appid, weConfig.secret)
+app.use(express.query())
 app.get('/info', function(req, res) {
 	client.getAccessToken(req.query.code, function(err, result) {
 		var accessToken = result.data.access_token
@@ -69,4 +50,4 @@ app.get('/info', function(req, res) {
 	})
 })
 
-app.listen(80)
+app.listen(weConfig.port)
