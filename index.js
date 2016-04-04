@@ -73,7 +73,7 @@ app.get('/info', function(req, res) {
             Object.keys(baseInfo).forEach(function(infoName){
                 query += '&' + infoName + '=' + baseInfo[infoName]
             })
-            res.redirect('/reserve?' + query.slice(1));
+            res.redirect('/reserve?' + decodeURIComponent(query.slice(1)))
 		})
 	})
 })
