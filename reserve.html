@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        var userInfoArr = location.search.slice(1).split('&')
+        var userInfoArr = decodeURIComponent(location.search.slice(1)).split('&')
         userInfoArr.forEach(function(infoItem){
             var infoItemArr = infoItem.split('=')
             document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
