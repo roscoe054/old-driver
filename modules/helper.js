@@ -15,7 +15,12 @@ module.exports = {
     		var openid = result.data.openid
 
     		client.getUser(openid, function(err, baseInfo) {
-    			callback(err, baseInfo)
+                var query = ''
+                Object.keys(baseInfo).forEach(function(infoName) {
+                    query += '&' + infoName + '=' + baseInfo[infoName]
+                })
+                
+    			callback(err, query.slice(1))
     		})
     	})
     }

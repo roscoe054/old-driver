@@ -39,27 +39,27 @@ app.get('/reserve', function(req, res) {
 	res.sendFile(path.join(__dirname + '/reserve.html'))
 })
 
-// get user base info
+// reserve
 app.use(express.query())
 app.get('/info', function(req, res) {
-	helper.getBaseInfo(app, req.query.code, function(err, baseInfo){
+	helper.getBaseInfo(app, req.query.code, function(err, baseInfoQuery){
         if(err){
             res.send(JSON.stringify(err))
         } else{
-            var query = ''
-            Object.keys(baseInfo).forEach(function(infoName) {
-                query += '&' + infoName + '=' + baseInfo[infoName]
-            })
-            res.redirect('/reserve?' + query.slice(1))
+            res.redirect('/reserve?' + baseInfoQuery)
         }
 	})
 })
 
 // binding
-// app.get('/binding', function(req, res) {
-// 	helper.getBaseInfo(client, req.query.code, function(err, baseInfoQuery){
-//         res.redirect('/reserve?' + baseInfoQuery)
-//     })
-// })
+app.get('/binding', function(req, res) {
+    helper.getBaseInfo(app, req.query.code, function(err, baseInfoQuery){
+        if(err){
+            res.send(JSON.stringify(err))
+        } else{
+            res.sendFile(path.join(__dirname + '/binding.html'))
+        }
+	})
+})
 
 app.listen(weConfig.port)
