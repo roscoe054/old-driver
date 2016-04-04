@@ -9,6 +9,9 @@ var helper = require('./modules/helper')
 // create app
 var app = express()
 
+// statics
+app.use("/public", express.static(__dirname + '/public'));
+
 // menu
 var WechatAPI = require('wechat-api')
 var menuModel = require('./modules/menu')
@@ -41,12 +44,12 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 
 // test reserve
 app.get('/reserve', function(req, res) {
-	res.sendFile(path.join(__dirname + '/reserve.html'))
+	res.sendFile(path.join(__dirname + '/views/reserve.html'))
 })
 
 // binding
 app.get('/binding', function(req, res) {
-    res.sendFile(path.join(__dirname + '/binding.html'))
+    res.sendFile(path.join(__dirname + '/views/binding.html'))
 })
 
 // reserve

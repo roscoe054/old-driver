@@ -1,0 +1,45 @@
+html{
+    display: flex;
+}
+
+body{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    margin: -35px 0 0;
+    color: #387ef5;
+}
+
+.subtitle{
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #999;
+}
+
+.m-input{
+    padding: 10px;
+}
+
+.job-number{
+    display: block;
+    width: 80%;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.btn-submit{
+    display: block;
+    width: 80%;
+    padding: 10px 0;
+    color: #fff;
+    background-color: #387ef5;
+}
+
+.btn-submit:active{
+    background-color: blue;
+}

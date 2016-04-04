@@ -1,0 +1,37 @@
+*, :after, :before {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body, div, p, ul, ol, li, span, img, h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    min-height: 100%;
+}
+
+body{
+    min-height: 100%;
+    font-family: Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #eee;
+}
+
+ul, ol{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+input{
+    border: 0;
+}
+
+input:focus{
+    outline: none;
+}
