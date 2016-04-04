@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,minimum-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport">
@@ -8,20 +9,31 @@
     <link rel="stylesheet" href="/public/styles/binding.css">
     <script type="text/javascript" src="/public/scripts/viewport.js"></script>
 </head>
-<body>
+
+<body id='scrollDiv'>
     <h1 class="title">Meetings</h1>
     <h2 class="subtitle">身份绑定</h2>
-    <input class="m-input job-number" type="text" name="jobNumber" placeholder="请输入姓名id"/>
-    <a class="btn btn-submit" href="javascript:;" >提交</a>
+    <input class="m-input job-number" type="text" name="jobNumber" placeholder="请输入姓名id" />
+    <a class="btn btn-submit" href="javascript:;">提交</a>
     <script>
-        // var baseInfo = decodeURIComponent(location.search.slice(1)).split('&')
-        // baseInfo.forEach(function(infoItem){
-        //     var infoItemArr = infoItem.split('=')
-        //
-        //     // if(infoItemArr[0] === 'openid'){
-        //         document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
-        //     // }
-        // })
+        var content = document.getElementsById('scrollDiv');
+        content.addEventListener('touchstart', function(event) {
+            this.allowUp = (this.scrollTop > 0);
+            this.allowDown = (this.scrollTop < this.scrollHeight - this.clientHeight);
+            this.slideBeginY = event.pageY;
+        });
+
+        content.addEventListener('touchmove', function(event) {
+            var up = (event.pageY > this.slideBeginY);
+            var down = (event.pageY < this.slideBeginY);
+            this.slideBeginY = event.pageY;
+            if ((up && this.allowUp) || (down && this.allowDown)) {
+                event.stopPropagation();
+            } else {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
+
 </html>
