@@ -17,12 +17,20 @@ api.createMenu(menuModel, function(){})
 // auto reply
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	// 微信输入信息都在req.weixin上
-	var message = req.weixin
+	var msg = req.weixin
 
-	if (message.Content === 'hehe') {
-		res.reply('...')
-	} else {
-		res.reply('测试中...')
+    if(msg.MsgType === 'event' && msg.Event === 'subscribe'){
+        res.reply('等你好久了，点击<a href="baidu.com">链接</a>以完成绑定')
+        next()
+    }
+
+    if(msg.MsgType === 'text'){
+        if (msg.Content === 'hehe') {
+    		res.reply('...')
+    	} else {
+    		res.reply('测试中...')
+        }
+        next()
     }
 }))
 
