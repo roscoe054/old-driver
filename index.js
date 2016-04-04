@@ -34,9 +34,14 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
     }
 }))
 
-// test
+// test reserve
 app.get('/reserve', function(req, res) {
 	res.sendFile(path.join(__dirname + '/reserve.html'))
+})
+
+// binding
+app.get('/binding', function(req, res) {
+    res.sendFile(path.join(__dirname + '/binding.html'))
 })
 
 // reserve
@@ -46,18 +51,7 @@ app.get('/info', function(req, res) {
         if(err){
             res.send(JSON.stringify(err))
         } else{
-            res.redirect('/reserve?' + baseInfoQuery)
-        }
-	})
-})
-
-// binding
-app.get('/binding', function(req, res) {
-    helper.getBaseInfo(app, req.query.code, function(err, baseInfoQuery){
-        if(err){
-            res.send(JSON.stringify(err))
-        } else{
-            res.sendFile(path.join(__dirname + '/binding.html?' + baseInfoQuery))
+            res.redirect(req.query.state + '?' + baseInfoQuery)
         }
 	})
 })
