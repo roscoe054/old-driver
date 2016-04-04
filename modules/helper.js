@@ -6,7 +6,6 @@ module.exports = {
         var OAuth = require('wechat-oauth')
         var client = new OAuth(weConfig.appid, weConfig.secret)
 
-        app.use(express.query())
     	client.getAccessToken(code, function(err, result) {
             if(err){
                 callback(err)

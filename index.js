@@ -40,16 +40,18 @@ app.get('/reserve', function(req, res) {
 })
 
 // get user base info
-var OAuth = require('wechat-oauth')
-var client = new OAuth(weConfig.appid, weConfig.secret)
 app.use(express.query())
 app.get('/info', function(req, res) {
-	helper.getBaseInfo(client, req.query.code, function(err, baseInfo){
-        var query = ''
-        Object.keys(baseInfo).forEach(function(infoName) {
-            query += '&' + infoName + '=' + baseInfo[infoName]
-        })
-        res.redirect('/reserve?' + query.slice(1))
+	helper.getBaseInfo(app, req.query.code, function(err, baseInfo){
+        if(err){
+            res.send(JSON.stringify(err))
+        } else{
+            var query = ''
+            Object.keys(baseInfo).forEach(function(infoName) {
+                query += '&' + infoName + '=' + baseInfo[infoName]
+            })
+            res.redirect('/reserve?' + query.slice(1))
+        }
 	})
 })
 
