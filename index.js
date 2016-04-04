@@ -40,7 +40,7 @@ api.createMenu({
     	}]
     }]
     }]
-}, callback)
+}, function(){})
 
 app.use(express.query())
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
