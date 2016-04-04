@@ -1,3 +1,5 @@
+var weConfig = require('../config')
+
 module.exports = {
     getBaseInfo: function(app, code, callback){
         var express = require('express')
