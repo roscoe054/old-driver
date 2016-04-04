@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "wechat": "^2.0.3",
-    "wechat-api": "^1.27.1"
+    "wechat-api": "^1.27.1",
+    "wechat-oauth": "^1.1.1"
   }
 }

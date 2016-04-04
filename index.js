@@ -1,16 +1,22 @@
 var wechat = require('wechat')
 var express = require('express')
 var wechat = require('wechat')
+var OAuth = require('wechat-oauth')
 
 var CONFIG = require('./config')
 
 var weConfig = CONFIG || {
-    token: 'token',
-    appid: 'appid',
-    encodingAESKey: 'encodingAESKey'
+	token: 'token',
+	appid: 'appid',
+	secret: 'secret',
+	encodingAESKey: 'encodingAESKey'
 }
 
 var app = express()
+
+// oauth
+var client = new OAuth(weConfig.appid, weConfig.secret)
+var url = client.getAuthorizeURL('http://115.159.119.199/info', 'state', 'snsapi_userinfo');
 
 app.use(express.query())
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
@@ -18,7 +24,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	var message = req.weixin
 	if (message.Content === 'diaosi') {
 		// 回复屌丝(普通回复)
-		res.reply('hehe')
+		res.reply('hehe ', url)
 	} else if (message.Content === 'text') {
 		//你也可以这样回复text类型的信息
 		res.reply({
@@ -47,5 +53,16 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 		}])
 	}
 }))
+
+app.get('/info', function(req, res) {
+	client.getAccessToken(req.query.code, function(err, result) {
+		var accessToken = result.data.access_token
+		var openid = result.data.openid
+
+		client.getUser(openid, function(err, result) {
+			res.send(JSON.stringify(result))
+		})
+	})
+})
 
 app.listen(80)
