@@ -54,6 +54,10 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	}
 }))
 
+app.get('/hello', function(req, res) {
+	res.send('hello')
+})
+
 app.get('/info', function(req, res) {
 	client.getAccessToken(req.query.code, function(err, result) {
 		var accessToken = result.data.access_token
