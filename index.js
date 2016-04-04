@@ -24,20 +24,13 @@ var WechatAPI = require('wechat-api');
 var api = new WechatAPI(weConfig.appid, weConfig.secret);
 api.createMenu({
     "button": [{
-    	"type": "click",
-    	"name": "今日歌曲",
-    	"key": "V1001_TODAY_MUSIC"
+        "type": "view",
+        "name": "预定",
+        "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx65cfe45c2c6fad4a&redirect_uri=http://roscoe.cn/info&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
     }, {
-    	"name": "菜单",
-    	"sub_button": [{
-    		"type": "view",
-    		"name": "搜索",
-    		"url": "http://www.soso.com/"
-    	}, {
-    		"type": "click",
-    		"name": "赞一下我们",
-    		"key": "V1001_GOOD"
-    	}]
+        "type": "view",
+        "name": "我的",
+        "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx65cfe45c2c6fad4a&redirect_uri=http://roscoe.cn/info&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
     }]
 }, function(){})
 
@@ -45,38 +38,37 @@ app.use(express.query())
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	// 微信输入信息都在req.weixin上
 	var message = req.weixin
-	res.reply('测试中...')
 
-	// if (message.Content === 'diaosi') {
-	// 	// 回复屌丝(普通回复)
-	// 	res.reply('hehe ', url)
-	// } else if (message.Content === 'text') {
-	// 	//你也可以这样回复text类型的信息
-	// 	res.reply({
-	// 		content: 'text object',
-	// 		type: 'text'
-	// 	})
-	// } else if (message.Content === 'hehe') {
-	// 	// 回复一段音乐
-	// 	res.reply({
-	// 		type: "music",
-	// 		content: {
-	// 			title: "来段音乐吧",
-	// 			description: "一无所有",
-	// 			musicUrl: "http://mp3.com/xx.mp3",
-	// 			hqMusicUrl: "http://mp3.com/xx.mp3",
-	// 			thumbMediaId: "thisThumbMediaId"
-	// 		}
-	// 	})
-	// } else {
-	// 	// 回复高富帅(图文回复)
-	// 	res.reply([{
-	// 		title: '你来我家接我吧',
-	// 		description: '这是女神与高富帅之间的对话',
-	// 		picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-	// 		url: 'http://nodeapi.cloudfoundry.com/'
-	// 	}])
-	// }
+	if (message.Content === 'diaosi') {
+		// 回复屌丝(普通回复)
+		res.reply('hehe ')
+	} else if (message.Content === 'text') {
+		//你也可以这样回复text类型的信息
+		res.reply({
+			content: 'text object',
+			type: 'text'
+		})
+	} else if (message.Content === 'hehe') {
+		// 回复一段音乐
+		res.reply({
+			type: "music",
+			content: {
+				title: "来段音乐吧",
+				description: "一无所有",
+				musicUrl: "http://mp3.com/xx.mp3",
+				hqMusicUrl: "http://mp3.com/xx.mp3",
+				thumbMediaId: "thisThumbMediaId"
+			}
+		})
+	} else {
+		// 回复高富帅(图文回复)
+		res.reply([{
+			title: '你来我家接我吧',
+			description: '这是女神与高富帅之间的对话',
+			picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+			url: 'http://nodeapi.cloudfoundry.com/'
+		}])
+	}
 }))
 
 app.get('/hello', function(req, res) {
