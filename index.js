@@ -24,7 +24,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	var msg = req.weixin
 
     if(msg.MsgType === 'event' && msg.Event === 'subscribe'){
-        var bindingUrl = client.getAuthorizeURL('roscoe.cn/info', 'binding', 'snsapi_userinfo');
+        var bindingUrl = client.getAuthorizeURL('http://roscoe.cn/info', 'binding', 'snsapi_userinfo');
         res.reply('等你好久了！点击<a href="' + bindingUrl + '">链接</a>以完成绑定(ง •_•)ง ' + bindingUrl)
         next()
     }
