@@ -16,8 +16,8 @@ var api = new WechatAPI(weConfig.appid, weConfig.secret)
 api.createMenu(menuModel, function(){})
 
 // oauth
-var OAuth = require('wechat-oauth');
-var client = new OAuth(weConfig.appid, weConfig.secret);
+var OAuth = require('wechat-oauth')
+var client = new OAuth(weConfig.appid, weConfig.secret)
 
 // auto reply
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
@@ -25,7 +25,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 
     if(msg.MsgType === 'event' && msg.Event === 'subscribe'){
         var bindingUrl = client.getAuthorizeURL('http://roscoe.cn/info', 'binding', 'snsapi_userinfo');
-        res.reply('等你好久了！点击<a href="' + bindingUrl + '">链接</a>以完成绑定(ง •_•)ง ' + bindingUrl)
+        res.reply('等你好久了！<a href="' + bindingUrl + '">点击这里</a>以完成绑定(ง •_•)ง')
         next()
     }
 
