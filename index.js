@@ -4,7 +4,6 @@ var wechat = require('wechat')
 
 // get config
 var weConfig = require('./config')
-var helper = require('./modules/helper')
 
 // create app
 var app = express()

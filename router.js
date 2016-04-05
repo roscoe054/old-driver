@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var path = require('path')
+var helper = require('./modules/helper')
 
 // controllers
 var binding = require("./controllers/binding.js")
