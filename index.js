@@ -1,5 +1,5 @@
 var express = require('express')
-var path = require("path")
+var path = require('path')
 var wechat = require('wechat')
 
 // get config
@@ -22,6 +22,11 @@ api.createMenu(menuModel, function(){})
 var OAuth = require('wechat-oauth')
 var client = new OAuth(weConfig.appid, weConfig.secret)
 
+// view engine
+app.set('view engine', 'html')
+app.engine('html', require('ejs').renderFile)
+app.set('views', path.join(__dirname, 'views'))
+
 // auto reply
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	var msg = req.weixin
@@ -42,26 +47,8 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
     }
 }))
 
-// test reserve
-app.get('/reserve', function(req, res) {
-	res.sendFile(path.join(__dirname + '/views/reserve.html'))
-})
-
-// binding
-app.get('/binding', function(req, res) {
-    res.sendFile(path.join(__dirname + '/views/binding.html'))
-})
-
-// reserve
-app.use(express.query())
-app.get('/info', function(req, res) {
-	helper.getBaseInfo(app, req.query.code, function(err, baseInfoQuery){
-        if(err){
-            res.send(JSON.stringify(err))
-        } else{
-            res.redirect(req.query.state + '?' + baseInfoQuery)
-        }
-	})
-})
+// router
+var router = require('./router')
+app.use('/', router);
 
 app.listen(weConfig.port)

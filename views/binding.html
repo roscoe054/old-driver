@@ -13,9 +13,11 @@
 <body>
     <h1 class="title">Meetings</h1>
     <h2 class="subtitle">身份绑定</h2>
-    <input class="m-input job-number" type="text" name="jobNumber" placeholder="请输入姓名id" />
-    <a class="btn btn-submit" href="javascript:;">提交</a>
-    <input class="btn btn-submit" type="submit" value="提交"/>
+
+    <form class="form" action="/api/binding" method="post">
+        <input class="job-number" type="text" name="jobNumber" placeholder="请输入姓名id" />
+        <input class="btn btn-submit" type="submit" value="提交"/>
+    </form>
 
     <script type="text/javascript" src="/public/scripts/nobounce.js"></script>
     <script type="text/javascript">
