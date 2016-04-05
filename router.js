@@ -10,7 +10,7 @@ var binding = require("./controllers/binding.js")
 // getBaseInfo
 router.use(express.query())
 router.get('/info', function(req, res) {
-	helper.getBaseInfo(app, req.query.code, function(err, baseInfoQuery){
+	helper.getBaseInfo(req.query.code, function(err, baseInfoQuery){
         if(err){
             res.send(JSON.stringify(err))
         } else{

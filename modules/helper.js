@@ -1,7 +1,7 @@
 var weConfig = require('../config')
 
 module.exports = {
-    getBaseInfo: function(app, code, callback){
+    getBaseInfo: function(code, callback){
         var express = require('express')
         var OAuth = require('wechat-oauth')
         var client = new OAuth(weConfig.appid, weConfig.secret)
@@ -19,7 +19,7 @@ module.exports = {
                 Object.keys(baseInfo).forEach(function(infoName) {
                     query += '&' + infoName + '=' + baseInfo[infoName]
                 })
-                
+
     			callback(err, query.slice(1))
     		})
     	})
