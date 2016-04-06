@@ -40,7 +40,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
         if (msg.Content === 'hehe') {
     		res.reply('...')
     	} else {
-    		res.reply('测试中...')
+    		res.reply('这学期暂时不开啦，不好意思〒▽〒')
         }
         next()
     }
