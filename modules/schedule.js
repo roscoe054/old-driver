@@ -1,4 +1,6 @@
 var moment = require('moment')
+var request = require('request')
+
 var mock = {
 	recentMeetings: [{
 		attendeeOpenIds: ['o1__FsxGOvh12CjS8ZtZqcwYtZXA'],
@@ -75,7 +77,17 @@ function getFormedDateRange(from, to){
 }
 
 function getRemindRList(callback) {
-	// TODO
+	request('http://115.159.119.199:8080/getMessages', function(error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log(body);
+			// res.json(JSON.parse(body))
+		} else{
+			console.log('hehe', response.statusCode);
+			console.log(error);
+			// res.json(JSON.parse(error))
+		}
+	})
+
 	callback(mock)
 }
 

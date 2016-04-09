@@ -41,7 +41,7 @@ var router = require('./router')
 app.use('/', router)
 
 // schedule
-var schedule = require('./schedule')
+var schedule = require('./modules/schedule')
 schedule.init(api)
 
 app.listen(weConfig.port)
