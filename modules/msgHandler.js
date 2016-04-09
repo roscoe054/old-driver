@@ -40,11 +40,11 @@ module.exports = function(req, res, next){
 				} else if(!semantic || !semantic.event || !semantic.datetime){
                     res.reply('我好像没理解(´_ゝ`)')
                 } else{
-                    var remindText = '已设置提醒：'
+                    var remindText = '已设置提醒：\n'
                                 + semantic.datetime.date_ori
                                 + semantic.datetime.time_ori + '：'
                                 + semantic.event + '\n'
-                                + '<a href="#">点击这里</a>取消提醒'
+                                + '如需取消提醒请<a href="#">点击这里</a>'
 					res.reply(remindText)
 				}
 				next()
