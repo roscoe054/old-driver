@@ -47,15 +47,15 @@ function sendRemind(meetings, type, api) {
 
         if(type === MEETING_TYPE.RECENT){
             msg = '哈喽：您近期有一个会议\n'
-                + '会议室：' + meeting.meetingRoom + '\n'
-                + '时间：' + getFormedDateRange(meeting.from, meeting.to) + '\n'
-                + '发起人：' + meeting.bookerName + '\n'
+                + '会议室：' + meeting.roomName + '\n'
+                + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
+                + '发起人：' + meeting.bookerId + '\n'
                 + '请您准时到场 谢谢'
         } else if(type === MEETING_TYPE.NEW){
             msg = '哈喽：您有一个会议邀请\n'
-                + '会议室：' + meeting.meetingRoom + '\n'
-                + '时间：' + getFormedDateRange(meeting.from, meeting.to) + '\n'
-                + '发起人：' + meeting.bookerName + '\n'
+                + '会议室：' + meeting.roomName + '\n'
+                + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
+                + '发起人：' + meeting.bookerId + '\n'
                 + '如有特殊情况请联系发起人'
         }
 
@@ -63,6 +63,7 @@ function sendRemind(meetings, type, api) {
             meeting.attendeeOpenIds.forEach(function(openid) {
                 // FIXME 发送消息
                 api.sendText(openid, msg, function(err) {
+					console.log('send' + msg);
                 	if(err){
                         console.log(err);
                     }
