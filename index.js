@@ -56,7 +56,22 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
     }
 
 	if(msg.MsgType === 'voice'){
-		res.reply(JSON.stringify(msg))
+		var recognition = msg.Recognition
+
+		// TODO remove this test
+		recognition = '提醒一下我明天上午十点开会'
+
+		if(recognition && recognition !== ""){
+			api.semantic(msg.FromUserNmae, {
+				query: recognition,
+				category: 'remind',
+				city: '上海'
+			}, function(result){
+				res.reply(JSON.stringify(result.semantic))
+			})
+		} else{
+			res.reply('不好意思 没有听清(´_ゝ`)')
+		}
 		next()
 	}
 }))
