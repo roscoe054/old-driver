@@ -14,7 +14,8 @@ router.get('/info', function(req, res) {
         if(err){
             res.send(JSON.stringify(err))
         } else{
-            res.redirect(req.query.state + '?' + baseInfoQuery)
+			var openId = JSON.parse(baseInfoQuery).openid
+            res.redirect(req.query.state + '?openId=' + openId)
         }
 	})
 })

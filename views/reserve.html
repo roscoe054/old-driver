@@ -7,11 +7,12 @@
 </head>
 <body>
     <script>
-        var baseInfo = decodeURIComponent(location.search.slice(1)).split('&')
-        baseInfo.forEach(function(infoItem){
-            var infoItemArr = infoItem.split('=')
-            document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
-        })
+        // var baseInfo = decodeURIComponent(location.search.slice(1)).split('&')
+        // baseInfo.forEach(function(infoItem){
+        //     var infoItemArr = infoItem.split('=')
+        //     document.write(infoItemArr[0] + ': ' + infoItemArr[1] + '</br>')
+        // })
+        document.write(location.href)
     </script>
 </body>
 </html>
