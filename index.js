@@ -62,7 +62,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 		recognition = '提醒一下我明天上午十点开会'
 
 		if(recognition && recognition !== ""){
-			api.semantic(msg.FromUserNmae, {
+			api.semantic(msg.FromUserName, {
 				query: recognition,
 				category: 'remind',
 				city: '上海'
