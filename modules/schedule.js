@@ -49,13 +49,11 @@ function sendRemind(meetings, type, api) {
             msg = '哈喽：您近期有一个会议\n'
                 + '会议室：' + meeting.roomName + '\n'
                 + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
-                + '发起人：' + meeting.bookerId + '\n'
                 + '请您准时到场 谢谢'
         } else if(type === MEETING_TYPE.NEW){
             msg = '哈喽：您有一个会议邀请\n'
                 + '会议室：' + meeting.roomName + '\n'
                 + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
-                + '发起人：' + meeting.bookerId + '\n'
                 + '如有特殊情况请联系发起人'
         }
 
