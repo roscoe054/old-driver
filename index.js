@@ -68,11 +68,12 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				city: '上海'
 			}, function(result){
 				res.reply(JSON.stringify(result.semantic))
+				next()
 			})
 		} else{
 			res.reply('不好意思 没有听清(´_ゝ`)')
+			next()
 		}
-		next()
 	}
 }))
 
