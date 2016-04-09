@@ -1,4 +1,4 @@
-var jumpPage = encodeURIComponent('reserve')
+var jumpPage = 'http://baidu.com'
 
 module.exports = {
     "button": [{
