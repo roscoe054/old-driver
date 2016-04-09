@@ -28,7 +28,7 @@ module.exports = function(req, res, next) {
                 next()
             } else {
                 // var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
-                var chatResMsg = body.match(/text\\/g)[1]
+                var chatResMsg = body.match(/"text\\":\\".+?\\"/g)[1].slice(8).slice(0, -2)
                 res.reply(chatResMsg)
                 next()
             }
