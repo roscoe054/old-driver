@@ -1,4 +1,4 @@
-var jumpPage = encodeURIComponent('http://115.159.119.199:8080/meeting/src/html/app.html#search')
+var jumpPage = encodeURIComponent('http://baidu.com')
 
 module.exports = {
     "button": [{
