@@ -29,11 +29,12 @@ var initSchedule = function() {
 	var schedule = require('node-schedule')
 
 	var j = schedule.scheduleJob('*/5 * * * * *', function() {
-		console.log('schedule processing')
-		getRemindRList(function(resData) {
-			sendRemind(resData.recentMeetings, MEETING_TYPE.RECENT)
-			sendRemind(resData.newMeetings,  MEETING_TYPE.NEW)
-		})
+		// FIXME
+		// console.log('schedule processing')
+		// getRemindRList(function(resData) {
+		// 	sendRemind(resData.recentMeetings, MEETING_TYPE.RECENT)
+		// 	sendRemind(resData.newMeetings,  MEETING_TYPE.NEW)
+		// })
 	})
 }
 

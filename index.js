@@ -23,7 +23,7 @@ app.use("/public", express.static(__dirname + '/public'));
 var WechatAPI = require('wechat-api')
 var menuModel = require('./modules/menu')
 var api = new WechatAPI(weConfig.appid, weConfig.secret)
-api.createMenu(menuModel, function(){})
+api.createMenu(menuModel, function() {})
 
 // view engine
 app.set('view engine', 'html')
@@ -43,5 +43,21 @@ app.use('/', router)
 // schedule
 var schedule = require('./modules/schedule')
 schedule.init(api)
+
+// test msg
+msgHandler({
+	weixin: {
+		MsgType: 'voice',
+		Recognition: '查看明天上午维亚大厦的会议室'
+	}
+}, {
+	reply: function(msg){
+		console.log(msg);
+	}
+}, function(){})
+
+// test request get
+var request = require('request')
+
 
 app.listen(weConfig.port)

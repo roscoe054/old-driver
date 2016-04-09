@@ -17,10 +17,13 @@
   },
   "homepage": "https://github.com/roscoe054/old-driver#readme",
   "dependencies": {
+    "async": "^2.0.0-rc.3",
     "body-parser": "^1.15.0",
+    "bosonnlp": "0.0.9",
     "compression": "^1.6.1",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "javascript-state-machine": "^2.3.5",
     "moment": "^2.12.0",
     "node-schedule": "^1.1.0",
     "request": "^2.70.0",

@@ -3,6 +3,9 @@ var OAuth = require('wechat-oauth')
 var WechatAPI = require('wechat-api')
 var request = require('request')
 
+var fsm = require('./fsm')
+var voiceReq = require('./voiceRequest')
+
 var client = new OAuth(weConfig.appid, weConfig.secret)
 var api = new WechatAPI(weConfig.appid, weConfig.secret)
 
@@ -10,7 +13,7 @@ module.exports = function(req, res, next) {
 	var msg = req.weixin
 
 	if (msg.MsgType === 'event' && msg.Event === 'subscribe') {
-		var bindingUrl = client.getAuthorizeURL('http://roscoe.cn/info', 'binding', 'snsapi_userinfo');
+		var bindingUrl = client.getAuthorizeURL('http://roscoe.cn/info', 'binding', 'snsapi_userinfo')
 		res.reply('等你好久了！<a href="' + bindingUrl + '">点击这里</a>以完成绑定(ง •_•)ง')
 		next()
 	}
@@ -25,20 +28,36 @@ module.exports = function(req, res, next) {
 	if (msg.MsgType === 'voice') {
 		var recognition = msg.Recognition
 
-		// TODO remove this test
 		if (recognition && recognition !== "") {
+            // 微信自带语义分析，查看是否是提醒
 			api.semantic(msg.FromUserName, {
 				query: recognition,
-				category: 'remind,datetime',
+				category: 'remind',
 				city: '上海'
 			}, function(err, result) {
 				if (err || result.errcode) {
-                    getChatRes(recognition, function(resText){
-                        res.reply(resText)
-                        next()
+                    // 自定义规则
+                    fsm.start(recognition, function(fsmRes){
+                        if(fsmRes && voiceReq[fsmRes.action]){
+                            voiceReq[fsmRes.action](fsmRes, function(resText){
+                                res.reply(resText)
+                                next()
+                            })
+                        } else{
+                            // 其它消息交给聊天机器人
+                            getChatRes(recognition, function(resText){
+                                res.reply(resText)
+                                next()
+                            })
+                        }
                     })
 				} else {
-					var remindText = '已设置提醒：\n' + semantic.datetime.date_ori + semantic.datetime.time_ori + '：' + semantic.event + '\n\n' + '如需取消提醒请<a href="#">点击这里</a>'
+					var remindText = '已设置提醒：\n'
+                        + semantic.datetime.date_ori
+                        + semantic.datetime.time_ori + '：'
+                        + semantic.event + '\n\n'
+                        + '如需取消提醒请<a href="#">点击这里</a>'
+
 					res.reply(remindText)
                     next()
 				}
