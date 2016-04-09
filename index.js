@@ -8,6 +8,10 @@ var weConfig = require('./config')
 // create app
 var app = express()
 
+// gzip
+var compress = require('compression')
+app.use(compress())
+
 // parse body
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -34,6 +38,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.use('/wechat', wechat(weConfig, function(req, res, next) {
 	var msg = req.weixin
 
+	console.log(msg);
+
     if(msg.MsgType === 'event' && msg.Event === 'subscribe'){
         var bindingUrl = client.getAuthorizeURL('http://roscoe.cn/info', 'binding', 'snsapi_userinfo');
         res.reply('等你好久了！<a href="' + bindingUrl + '">点击这里</a>以完成绑定(ง •_•)ง')
@@ -48,10 +54,19 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
         }
         next()
     }
+
+	if(msg.MsgType === 'voice'){
+		res.reply(JSON.stringify(msg))
+		next()
+	}
 }))
 
 // router
 var router = require('./router')
-app.use('/', router);
+app.use('/', router)
+
+// schedule
+var schedule = require('./schedule')
+schedule.init(api)
 
 app.listen(weConfig.port)
