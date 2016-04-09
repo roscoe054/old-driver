@@ -66,11 +66,12 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				query: recognition,
 				category: 'remind',
 				city: '上海'
-			}, function(result){
-				// console.log(result.semantic);
-				// res.reply(JSON.stringify(result.semantic))
-				// next()
-				res.reply(JSON.stringify(result))
+			}, function(err, result){
+				if(err){
+					res.reply('不好意思 服务器出了点小问题(´_ゝ`)')
+				} else{
+					res.reply(JSON.stringify(result.semantic)
+				}
 				next()
 			})
 		} else{
