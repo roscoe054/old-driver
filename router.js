@@ -4,7 +4,7 @@ var router = express.Router()
 var path = require('path')
 var helper = require('./modules/helper')
 
-// controllers
+// import controllers
 var binding = require("./controllers/binding.js")
 
 // getBaseInfo
@@ -19,16 +19,14 @@ router.get('/info', function(req, res) {
 	})
 })
 
-// pages
-router.get('/binding', binding.index)
+// bind
+router.get('/binding', binding.page.index)
+router.get('/api/binding/state', binding.api.state)
+router.post('/api/binding/bind', binding.api.bind)
 
-router.get('/reserve', function(req, res) { // FIXME 这里应该redirect到预定会议室页面
+// FIXME 这里应该redirect到预定会议室页面
+router.get('/reserve', function(req, res) {
 	res.sendFile(path.join(__dirname + '/views/reserve.html'))
-})
-
-// apis
-router.post('/api/binding', function(req, res) {
-    res.send('succeed')
 })
 
 module.exports = router

@@ -8,6 +8,10 @@ var weConfig = require('./config')
 // create app
 var app = express()
 
+// parse body
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+
 // statics
 app.use("/public", express.static(__dirname + '/public'));
 

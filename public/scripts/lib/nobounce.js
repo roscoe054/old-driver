@@ -147,5 +147,9 @@ var noBounce = function() {
         element.addEventListener("touchleave", handleTouchEnd);
     };
 
+    module.init({
+        animate: true
+    })
+
     return module;
 }();

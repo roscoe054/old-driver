@@ -11,6 +11,14 @@ body{
     font-size: 16px;
 }
 
+.hidden{
+    display: none;
+}
+
+.content-wrap{
+    height: 140px;
+}
+
 .title{
     margin: -35px 0 0;
     color: #387ef5;
@@ -28,7 +36,7 @@ body{
     padding: 0 10%;
 }
 
-.job-number{
+.form-input{
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
@@ -48,4 +56,9 @@ body{
 
 .btn-submit:active{
     background-color: blue;
+}
+
+.bind-succeed{
+    margin-top: 50px;
+    color: #387ef5;
 }
