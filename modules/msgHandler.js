@@ -33,22 +33,10 @@ module.exports = function(req, res, next) {
 				city: '上海'
 			}, function(err, result) {
 				if (err || result.errcode) {
-					request.post({
-						url: 'http://dev.hivoice.cn/exp_center/nlu/testService2Demo.action',
-						form: {
-							serviceId: 6,
-							question: '讲个笑话'
-						}
-					}, function(err, httpResponse, body) {
-						if (err) {
-							res.reply('服务器出了点小问题(´_ゝ`)')
-                            next()
-						} else {
-							var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
-							res.reply(chatResMsg)
-                            next()
-						}
-					})
+                    getChatRes(recognition, function(resText){
+                        res.reply(resText)
+                        next()
+                    })
 				} else {
 					var remindText = '已设置提醒：\n' + semantic.datetime.date_ori + semantic.datetime.time_ori + '：' + semantic.event + '\n\n' + '如需取消提醒请<a href="#">点击这里</a>'
 					res.reply(remindText)
