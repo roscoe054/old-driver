@@ -5,7 +5,7 @@ var host = 'http://115.159.119.199:8080/'
 
 module.exports = {
 	check: function(fsmRes, callback) {
-        var resultStr = '可用房间：\n',
+        var resultStr = '可用房间（' + fsmRes.location + '）：\n',
             time = fsmRes.time
 
 		requestGet(host + 'getRoomList', {

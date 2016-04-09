@@ -45,16 +45,16 @@ var schedule = require('./modules/schedule')
 schedule.init(api)
 
 // test msg
-msgHandler({
-	weixin: {
-		MsgType: 'voice',
-		Recognition: '查看明天上午维亚大厦的会议室'
-	}
-}, {
-	reply: function(msg){
-		console.log(msg);
-	}
-}, function(){})
+// msgHandler({
+// 	weixin: {
+// 		MsgType: 'voice',
+// 		Recognition: '查看今天上午维亚大厦的会议室'
+// 	}
+// }, {
+// 	reply: function(msg){
+// 		console.log(msg);
+// 	}
+// }, function(){})
 
 // test request get
 var request = require('request')

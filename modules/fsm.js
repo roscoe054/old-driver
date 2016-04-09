@@ -82,11 +82,11 @@ module.exports = {
 
                     entities.forEach(function(entity){
                         if(entity[2] === 'location'){
-                            location
-                            console.log(msg.words.slice(entity[0], entity[1]));
+                            location = msg.words.slice(entity[0], entity[1]).join('')
                         }
                     })
                     fsm.sendRequest({
+                        location: location,
                         action: msg.action,
                         time: msg.time
                     })
@@ -135,6 +135,10 @@ module.exports = {
                 case '晚上':
                     d.from.hour(17)
                     d.to.hour(21)
+                    break;
+                case '今天':
+                    d.from.date(moment().date())
+                    d.to.date(moment().date())
                     break;
                 case '明天':
                     d.from.date(moment().add(1, 'days').date())
