@@ -53,9 +53,9 @@ module.exports = function(req, res, next) {
                     })
 				} else {
 					var remindText = '已设置提醒：\n'
-                        + semantic.datetime.date_ori
-                        + semantic.datetime.time_ori + '：'
-                        + semantic.event + '\n\n'
+                        + result.semantic.datetime.date_ori
+                        + result.semantic.datetime.time_ori + '：'
+                        + result.semantic.event + '\n\n'
                         + '如需取消提醒请<a href="#">点击这里</a>'
 
 					res.reply(remindText)
