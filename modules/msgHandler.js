@@ -39,7 +39,7 @@ module.exports = function(req, res, next){
 				if(err){
 					res.reply('服务器出了点小问题(´_ゝ`)')
 				} else if(!semantic || !semantic.event || !semantic.semanticTime){
-                    res.reply('我好像没理解(´_ゝ`)' + JSON.stringify(semantic))
+                    res.reply('我好像没理解(´_ゝ`)' + semantic.event + semantic.semanticTime)
                 } else{
                     var remindText = '已设置提醒：'
                                 + semanticTime.date_ori + ' '
