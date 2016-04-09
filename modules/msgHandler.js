@@ -20,15 +20,14 @@ module.exports = function(req, res, next) {
             url: 'http://dev.hivoice.cn/exp_center/nlu/testService2Demo.action',
             form: {
                 serviceId: 6,
-                question: '讲个笑话'
+                question: msg.Content
             }
         }, function(err, httpResponse, body) {
             if (err) {
                 res.reply('服务器出了点小问题(´_ゝ`)')
                 next()
             } else {
-                // var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
-                var chatResMsg = body.match(/"text\\":\\".+?\\"/g)[1].slice(8).slice(0, -2)
+                var chatResMsg = body.match(/"text\\":\\".+?\\"/g)[1].slice(10).slice(0, -3)
                 res.reply(chatResMsg)
                 next()
             }
