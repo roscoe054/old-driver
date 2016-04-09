@@ -1,5 +1,6 @@
 var jumpPage = 'http://baidu.com'
 
+
 module.exports = {
     "button": [{
         "type": "view",
