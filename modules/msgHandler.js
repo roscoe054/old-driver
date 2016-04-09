@@ -16,12 +16,22 @@ module.exports = function(req, res, next) {
 	}
 
 	if (msg.MsgType === 'text') {
-		if (msg.Content === 'hehe') {
-			res.reply('...')
-		} else {
-			res.reply('这学期暂时不开啦，不好意思〒▽〒')
-		}
-		next()
+        request.post({
+            url: 'http://dev.hivoice.cn/exp_center/nlu/testService2Demo.action',
+            form: {
+                serviceId: 6,
+                question: '讲个笑话'
+            }
+        }, function(err, httpResponse, body) {
+            if (err) {
+                res.reply('服务器出了点小问题(´_ゝ`)')
+                next()
+            } else {
+                var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
+                res.reply(chatResMsg)
+                next()
+            }
+        })
 	}
 
 	if (msg.MsgType === 'voice') {
