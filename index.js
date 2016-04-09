@@ -70,7 +70,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				if(err){
 					res.reply('不好意思 服务器出了点小问题(´_ゝ`)')
 				} else{
-					res.reply(JSON.stringify(result.semantic)
+					res.reply(JSON.stringify(result.semantic))
 				}
 				next()
 			})
