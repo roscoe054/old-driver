@@ -67,7 +67,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				category: 'remind',
 				city: '上海'
 			}, function(result){
-				console.log(result.semantic);
+				// console.log(result.semantic);
 				// res.reply(JSON.stringify(result.semantic))
 				// next()
 				res.reply('hehe')
