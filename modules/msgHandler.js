@@ -23,14 +23,17 @@ module.exports = function(req, res, next) {
                 question: '讲个笑话'
             }
         }, function(err, httpResponse, body) {
-            if (err) {
-                res.reply('服务器出了点小问题(´_ゝ`)')
-                next()
-            } else {
-                var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
-                res.reply(chatResMsg)
-                next()
-            }
+            // if (err) {
+            //     res.reply('服务器出了点小问题(´_ゝ`)')
+            //     next()
+            // } else {
+            //     var chatResMsg = body.match(/text":".+?"/g)[1].slice(7).slice(0, -1)
+            //     res.reply(chatResMsg)
+            //     next()
+            // }
+
+            res.reply(body)
+            next()
         })
 	}
 
