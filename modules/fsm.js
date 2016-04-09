@@ -40,7 +40,6 @@ module.exports = {
         					tags = result.tag,
         					words = result.word
 
-                        console.log(result);
         				tags.forEach(function(tag, i) {
         					if (tag === 'v') {
         						var identification = identifyAction(words[i])
@@ -78,10 +77,14 @@ module.exports = {
         			}
         		},
                 onknowingLocation: function(event, from, to, msg){
-                    var entities = msg.entity
+                    var entities = msg.entity,
+                        location = ''
 
                     entities.forEach(function(entity){
-                        console.log(entity);
+                        if(entity[2] === 'location'){
+                            location
+                            console.log(msg.words.slice(entity[0], entity[1]));
+                        }
                     })
                     fsm.sendRequest({
                         action: msg.action,
