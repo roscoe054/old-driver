@@ -67,13 +67,12 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				category: 'remind',
 				city: '上海'
 			}, function(result){
-				console.log(result);
+				console.log(result.semantic);
 				// res.reply(JSON.stringify(result.semantic))
 				// next()
+				res.reply('hehe')
+				next()
 			})
-
-			res.reply('hehe')
-			next()
 		} else{
 			res.reply('不好意思 没有听清(´_ゝ`)')
 			next()
