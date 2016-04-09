@@ -31,8 +31,8 @@ var initSchedule = function() {
 	var j = schedule.scheduleJob('*/1 * * * *', function() {
 		console.log('schedule processing')
 		getRemindRList(function(resData) {
-			sendRemind(resData.recentMeetings, MEETING_TYPE.RECENT)
-			sendRemind(resData.newMeetings,  MEETING_TYPE.NEW)
+			sendRemind(resData.data.recentMeetings, MEETING_TYPE.RECENT)
+			sendRemind(resData.data.newMeetings,  MEETING_TYPE.NEW)
 		})
 	})
 }
