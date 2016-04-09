@@ -27,8 +27,6 @@ module.exports = function(req, res, next){
 		var recognition = msg.Recognition
 
 		// TODO remove this test
-		recognition = '提醒一下我明天上午十点开会'
-
 		if(recognition && recognition !== ""){
 			api.semantic(msg.FromUserName, {
 				query: recognition,
