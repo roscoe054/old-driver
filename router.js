@@ -15,7 +15,7 @@ router.get('/info', function(req, res) {
             res.send(JSON.stringify(err))
         } else{
 			var openId = JSON.stringify(baseInfoQuery).match(/openid=.+?&/)[0].slice(7).slice(0, -1)
-            res.redirect(req.query.state + '?openId=' + openId)
+            res.redirect('http://115.159.119.199:8080/meeting/src/html/app.html#search' + '?openId=' + openId)
         }
 	})
 })
