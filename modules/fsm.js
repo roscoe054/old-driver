@@ -19,12 +19,16 @@ module.exports = {
         		from: 'knowingAction',
         		to: 'knowingTime'
         	}, {
-        		name: 'sendRequest',
+                name: 'searchLocation',
         		from: 'knowingTime',
+        		to: 'knowingLocation'
+        	}, {
+                name: 'sendRequest',
+        		from: 'knowingLocation',
         		to: 'sendingRequest'
         	}, {
         		name: 'fail',
-        		from: ['knowingAction', 'knowingTime', 'sendingRequest'],
+        		from: ['knowingAction', 'knowingTime', 'knowingLocation', 'sendingRequest'],
         		to: 'exit'
         	}],
         	callbacks: {
@@ -32,16 +36,17 @@ module.exports = {
         			// FIXME
         			nlp.ner(msg, function(resData) {
         				var result = (JSON.parse(resData)[0]),
+                            entity = result.entity
         					tags = result.tag,
         					words = result.word
 
                         console.log(result);
-
         				tags.forEach(function(tag, i) {
         					if (tag === 'v') {
         						var identification = identifyAction(words[i])
         						if(identification && fsm.current === 'knowingAction'){
         							fsm.searchTime({
+                                        entity,
         								tags,
         								words,
         								action: identification
@@ -61,7 +66,9 @@ module.exports = {
         				}
         			})
         			if(timeStr){
-        				fsm.sendRequest({
+        				fsm.searchLocation({
+                            entity: msg.entity,
+                            words: msg.words,
         					action: msg.action,
         					time: {
                                 from: d.from,
@@ -70,6 +77,17 @@ module.exports = {
         				})
         			}
         		},
+                onknowingLocation: function(event, from, to, msg){
+                    var entities = msg.entity
+
+                    entities.forEach(function(entity){
+                        console.log(entity);
+                    })
+                    fsm.sendRequest({
+                        action: msg.action,
+                        time: msg.time
+                    })
+                },
         		onsendingRequest: function(event, from, to, msg){
         			done(msg)
         		}
