@@ -33,17 +33,16 @@ module.exports = function(req, res, next){
 				category: 'remind',
 				city: '上海'
 			}, function(err, result){
-                var semantic = result.semantic.details,
-                    semanticTime = semantic.datetime
+                var semantic = result.semantic.details
 
 				if(err){
 					res.reply('服务器出了点小问题(´_ゝ`)')
-				} else if(!semantic || !semantic.event || !semantic.semanticTime){
-                    res.reply('我好像没理解(´_ゝ`)' + semantic.event + semantic.semanticTime)
+				} else if(!semantic || !semantic.event || !semantic.datetime){
+                    res.reply('我好像没理解(´_ゝ`)')
                 } else{
                     var remindText = '已设置提醒：'
-                                + semanticTime.date_ori + ' '
-                                + semanticTime.time_ori + ' '
+                                + semantic.datetime.date_ori + ' '
+                                + semantic.datetime.time_ori + ' '
                                 + semantic.event
 					res.reply(remindText)
 				}
