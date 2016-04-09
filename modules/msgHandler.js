@@ -16,21 +16,9 @@ module.exports = function(req, res, next) {
 	}
 
 	if (msg.MsgType === 'text') {
-        request.post({
-            url: 'http://dev.hivoice.cn/exp_center/nlu/testService2Demo.action',
-            form: {
-                serviceId: 6,
-                question: msg.Content
-            }
-        }, function(err, httpResponse, body) {
-            if (err) {
-                res.reply('服务器出了点小问题(´_ゝ`)')
-                next()
-            } else {
-                var chatResMsg = body.match(/"text\\":\\".+?\\"/g)[1].slice(10).slice(0, -3)
-                res.reply(chatResMsg)
-                next()
-            }
+        getChatRes(msg.Content, function(resText){
+            res.reply(resText)
+            next()
         })
 	}
 
@@ -72,4 +60,21 @@ module.exports = function(req, res, next) {
 			next()
 		}
 	}
+}
+
+function getChatRes(msgText, callback){
+    request.post({
+        url: 'http://dev.hivoice.cn/exp_center/nlu/testService2Demo.action',
+        form: {
+            serviceId: 6,
+            question: msgText
+        }
+    }, function(err, httpResponse, body) {
+        if (err) {
+            callback('服务器出了点小问题(´_ゝ`)')
+        } else {
+            var chatResMsg = body.match(/"text\\":\\".+?\\"/g)[1].slice(10).slice(0, -2)
+            callback(chatResMsg)
+        }
+    })
 }
