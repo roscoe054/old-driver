@@ -30,7 +30,7 @@ module.exports = function(req, res, next){
 		if(recognition && recognition !== ""){
 			api.semantic(msg.FromUserName, {
 				query: recognition,
-				category: 'remind',
+				category: 'remind,datetime',
 				city: '上海'
 			}, function(err, result){
                 // var semantic = result.semantic.details
