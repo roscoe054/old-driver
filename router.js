@@ -19,7 +19,7 @@ router.get('/info', function(req, res) {
 
 			if(req.query.state === 'search'){
 				jumpTo = 'http://115.159.119.199:8080/meeting/src/html/app.html#search'
-			} else{
+			} else if(req.query.state === 'reservation'){
 				jumpTo = 'http://115.159.119.199:8080/meeting/src/html/app.html#reservation'
 			}
 
