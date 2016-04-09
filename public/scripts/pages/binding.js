@@ -39,8 +39,8 @@ Zepto(function($) {
             url: url,
             data: method === 'POST' ? JSON.stringify(data) : data,
             contentType: 'application/json',
-            success: function(res && res.data) {
-                if(res.ret){
+            success: function(res) {
+                if(res.ret && res.data){
                     callback(res.data)
                 } else{
                     alert('服务器出了点小问题...')
