@@ -33,21 +33,23 @@ module.exports = function(req, res, next){
 				category: 'remind',
 				city: '上海'
 			}, function(err, result){
-                var semantic = result.semantic.details
+                // var semantic = result.semantic.details
 
-				if(err){
-					res.reply('服务器出了点小问题(´_ゝ`)')
-				} else if(!semantic || !semantic.event || !semantic.datetime){
-                    res.reply('我好像没理解(´_ゝ`)')
-                } else{
-                    res.reply(JSON.stringify(semantic))
-                    // var remindText = '已设置提醒：\n'
-                    //             + semantic.datetime.date_ori
-                    //             + semantic.datetime.time_ori + '：'
-                    //             + semantic.event + '\n\n'
-                    //             + '如需取消提醒请<a href="#">点击这里</a>'
-					// res.reply(remindText)
-				}
+				// if(err){
+				// 	res.reply('服务器出了点小问题(´_ゝ`)')
+				// } else if(!semantic || !semantic.event || !semantic.datetime){
+                //     res.reply('我好像没理解(´_ゝ`)')
+                // } else{
+                //     res.reply(JSON.stringify(semantic))
+                //     // var remindText = '已设置提醒：\n'
+                //     //             + semantic.datetime.date_ori
+                //     //             + semantic.datetime.time_ori + '：'
+                //     //             + semantic.event + '\n\n'
+                //     //             + '如需取消提醒请<a href="#">点击这里</a>'
+				// 	// res.reply(remindText)
+				// }
+
+                res.reply(JSON.stringify(result))
 				next()
 			})
 		} else{
