@@ -4,6 +4,6 @@ module.exports = {
     "button": [{
         "type": "view",
         "name": "预定",
-        "url": reserveUrl
+        "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx65cfe45c2c6fad4a&redirect_uri=' + reserveUrl + '&response_type=code&scope=snsapi_userinfo&state=reserve#wechat_redirect'
     }]
 }
