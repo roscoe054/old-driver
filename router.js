@@ -15,7 +15,14 @@ router.get('/info', function(req, res) {
             res.send(JSON.stringify(err))
         } else{
 			var openId = JSON.stringify(baseInfoQuery).match(/openid=.+?&/)[0].slice(7).slice(0, -1),
-				jumpTo = req.query.state || 'http://115.159.119.199:8080/meeting/src/html/app.html#search'
+				jumpTo = req.query.state
+
+			if(req.query.state === 'search'){
+				jumpTo = 'http://115.159.119.199:8080/meeting/src/html/app.html#search'
+			} else if(req.query.state === 'reservation'){
+				jumpTo = 'http://115.159.119.199:8080/meeting/src/html/app.html#reservation'
+			}
+
             res.redirect(jumpTo + '?openId=' + openId)
         }
 	})

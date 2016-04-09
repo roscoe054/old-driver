@@ -25,46 +25,47 @@ var MEETING_TYPE = {
     'RECENT': 'recnet'
 }
 
-var initSchedule = function() {
+var initSchedule = function(api) {
 	var schedule = require('node-schedule')
 
-	var j = schedule.scheduleJob('*/5 * * * * *', function() {
-		// FIXME
-		// console.log('schedule processing')
-		// getRemindRList(function(resData) {
-		// 	sendRemind(resData.recentMeetings, MEETING_TYPE.RECENT)
-		// 	sendRemind(resData.newMeetings,  MEETING_TYPE.NEW)
-		// })
+	var j = schedule.scheduleJob('*/1 * * * *', function() {
+		console.log('schedule processing')
+		getRemindRList(function(resData) {
+			sendRemind(resData.data.recentMeetings, MEETING_TYPE.RECENT, api)
+			sendRemind(resData.data.newMeetings,  MEETING_TYPE.NEW, api)
+		})
 	})
 }
 
-function sendRemind(meetings, type) {
+function sendRemind(meetings, type, api) {
+	if(!meetings || meetings.length === 0){
+		return
+	}
+
     meetings.forEach(function(meeting) {
         var msg = ''
 
         if(type === MEETING_TYPE.RECENT){
             msg = '哈喽：您近期有一个会议\n'
-                + '会议室：' + meeting.meetingRoom + '\n'
-                + '时间：' + getFormedDateRange(meeting.from, meeting.to) + '\n'
-                + '发起人：' + meeting.bookerName + '\n'
+                + '会议室：' + meeting.roomName + '\n'
+                + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
                 + '请您准时到场 谢谢'
         } else if(type === MEETING_TYPE.NEW){
             msg = '哈喽：您有一个会议邀请\n'
-                + '会议室：' + meeting.meetingRoom + '\n'
-                + '时间：' + getFormedDateRange(meeting.from, meeting.to) + '\n'
-                + '发起人：' + meeting.bookerName + '\n'
+                + '会议室：' + meeting.roomName + '\n'
+                + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
                 + '如有特殊情况请联系发起人'
         }
 
         if (meeting.attendeeOpenIds) {
             meeting.attendeeOpenIds.forEach(function(openid) {
                 // FIXME 发送消息
-                // api.sendText(openid, 'Hello world2', function(err) {
-                // 	if(err){
-                //         console.log(err);
-                //     }
-                // })
-                // console.log(msg);
+                api.sendText(openid, msg, function(err) {
+					console.log('send' + msg);
+                	if(err){
+                        console.log(err);
+                    }
+                })
             })
         }
     })
@@ -80,16 +81,12 @@ function getFormedDateRange(from, to){
 function getRemindRList(callback) {
 	request('http://115.159.119.199:8080/getMessages', function(error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log(body);
-			// res.json(JSON.parse(body))
+			callback(JSON.parse(body))
 		} else{
-			console.log('hehe', response.statusCode);
-			console.log(error);
-			// res.json(JSON.parse(error))
+			callback(JSON.parse(error))
 		}
 	})
 
-	callback(mock)
 }
 
 module.exports = {
