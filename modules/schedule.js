@@ -25,19 +25,19 @@ var MEETING_TYPE = {
     'RECENT': 'recnet'
 }
 
-var initSchedule = function() {
+var initSchedule = function(api) {
 	var schedule = require('node-schedule')
 
 	var j = schedule.scheduleJob('*/1 * * * *', function() {
 		console.log('schedule processing')
 		getRemindRList(function(resData) {
-			sendRemind(resData.data.recentMeetings, MEETING_TYPE.RECENT)
-			sendRemind(resData.data.newMeetings,  MEETING_TYPE.NEW)
+			sendRemind(resData.data.recentMeetings, MEETING_TYPE.RECENT, api)
+			sendRemind(resData.data.newMeetings,  MEETING_TYPE.NEW, api)
 		})
 	})
 }
 
-function sendRemind(meetings, type) {
+function sendRemind(meetings, type, api) {
 	if(!meetings || meetings.length === 0){
 		return
 	}
