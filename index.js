@@ -70,7 +70,7 @@ app.use('/wechat', wechat(weConfig, function(req, res, next) {
 				// console.log(result.semantic);
 				// res.reply(JSON.stringify(result.semantic))
 				// next()
-				res.reply('hehe')
+				res.reply(JSON.stringify(result))
 				next()
 			})
 		} else{
