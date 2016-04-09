@@ -1,6 +1,8 @@
 Zepto(function($) {
+    var openId = location.search.split('?')[1].split('=')[1]
+
     getBindState(function(resData){
-        if(resData.state){
+        if(resData.success){
             $('.bind-succeed').removeClass('hidden')
         } else{
             $('.form').removeClass('hidden')
@@ -11,11 +13,14 @@ Zepto(function($) {
         e.preventDefault()
         submitBind({
             name: $('.form-name').val(),
-            phone: $('.form-phone').val()
+            telephone: $('.form-phone').val(),
+            openId: openId
         }, function(resData){
-            if(resData.state){
+            if(resData.success){
                 $('.form').addClass('hidden')
                 $('.bind-succeed').removeClass('hidden')
+            } else {
+                alert('未绑定成功，请稍后再试...')
             }
         })
     })
@@ -25,17 +30,17 @@ Zepto(function($) {
     }
 
     function getBindState(callback) {
-        ajax('GET', '/api/binding/state', {openid: 'hehehehe'}, callback)
+        ajax('GET', '/api/binding/state', {openId: openId}, callback)
     }
 
     function ajax(method, url, data, callback) {
         $.ajax({
             type: method,
             url: url,
-            data: JSON.stringify(data),
+            data: method === 'POST' ? JSON.stringify(data) : data,
             contentType: 'application/json',
-            success: function(res) {
-                if(res.ret && res.data){
+            success: function(res && res.data) {
+                if(res.ret){
                     callback(res.data)
                 } else{
                     alert('服务器出了点小问题...')
