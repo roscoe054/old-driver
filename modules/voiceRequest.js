@@ -8,8 +8,15 @@ module.exports = {
         var resultStr = '可用房间',
             time = fsmRes.time
 
-		resultStr += fsmRes.location ? fsmRes.location : ''
-		resultStr += '\n'
+		resultStr += fsmRes.location ? '（' + fsmRes.location + '）' : ''
+		resultStr += ':\n'
+
+		var obj = {
+			site: 1,
+			from: time.from.format('x'),
+			to: time.to.format('x')
+		}
+		console.log(obj);
 
 		requestGet(host + 'getRoomList', {
 			site: 1,
