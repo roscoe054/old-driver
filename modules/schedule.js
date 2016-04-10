@@ -47,16 +47,16 @@ function sendRemind(meetings, type, api) {
 
         if(type === MEETING_TYPE.RECENT){
             msg = '哈喽：您近期有一个会议\n'
-				+ meeting.comment + '\n'
+				+ '【' + meeting.comment + '】' + '\n'
                 + '会议室：' + meeting.roomName + '\n'
                 + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
                 + '请您准时到场 谢谢'
         } else if(type === MEETING_TYPE.NEW){
             msg = '哈喽：您有一个会议邀请\n'
-				+ meeting.comment + '\n'
+				+ '【' + meeting.comment + '】' + '\n'
                 + '会议室：' + meeting.roomName + '\n'
                 + '时间：' + getFormedDateRange(meeting.fromTime, meeting.toTime) + '\n'
-                + '如有特殊情况请联系发起人'
+                + '请您准时到场 谢谢'
         }
 
         if (meeting.attendeeOpenIds) {
