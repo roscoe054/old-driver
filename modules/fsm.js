@@ -155,8 +155,8 @@ module.exports = {
                     d.to.date(moment().date())
                     break;
                 case '明天':
-                    d.from.date(moment().add(1, 'days').date())
-                    d.to.date(moment().add(1, 'days').date())
+                    d.from.date(moment().add(1, 'days').hour(8).date())
+                    d.to.date(moment().add(1, 'days').hour(21).date())
                     break;
                 case '后天':
                     d.from.date(moment().add(2, 'days').date())
