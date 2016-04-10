@@ -48,7 +48,7 @@ schedule.init(api)
 // msgHandler({
 // 	weixin: {
 // 		MsgType: 'voice',
-// 		Recognition: '查看今天上午维亚大厦的会议室'
+// 		Recognition: '你是谁'
 // 	}
 // }, {
 // 	reply: function(msg){

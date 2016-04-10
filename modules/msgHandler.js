@@ -53,7 +53,7 @@ module.exports = function(req, res, next) {
                     })
 				} else {
 					var semantic = result.semantic.details
-					var remindText = '已设置提醒：\n'
+					var remindText = '已设置提醒\n'
                         + semantic.datetime.date_ori
                         + semantic.datetime.time_ori + '：'
                         + semantic.event

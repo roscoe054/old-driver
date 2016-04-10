@@ -32,27 +32,38 @@ module.exports = {
         		to: 'exit'
         	}],
         	callbacks: {
+                onexit: function(){
+                    done()
+                },
         		onknowingAction: function(event, from, to, msg){
-        			// FIXME
         			nlp.ner(msg, function(resData) {
-        				var result = (JSON.parse(resData)[0]),
-                            entity = result.entity
-        					tags = result.tag,
-        					words = result.word
+                        resData = resData.trim()
+                        if(resData){
+                            var result = (JSON.parse(resData)[0]),
+                                entity = result.entity
+            					tags = result.tag,
+            					words = result.word
 
-        				tags.forEach(function(tag, i) {
-        					if (tag === 'v') {
-        						var identification = identifyAction(words[i])
-        						if(identification && fsm.current === 'knowingAction'){
-        							fsm.searchTime({
-                                        entity,
-        								tags,
-        								words,
-        								action: identification
-        							})
-        						}
-        					}
-        				})
+            				tags.forEach(function(tag, i) {
+            					if (tag === 'v') {
+            						var identification = identifyAction(words[i])
+            						if(identification && fsm.current === 'knowingAction'){
+            							fsm.searchTime({
+                                            entity,
+            								tags,
+            								words,
+            								action: identification
+            							})
+            						}
+            					}
+            				})
+
+                            if(fsm.current === 'knowingAction'){
+                                fsm.fail()
+                            }
+                        } else{
+                            fsm.fail()
+                        }
         			})
         		},
         		onknowingTime: function(event, from, to, msg){
@@ -74,7 +85,9 @@ module.exports = {
                                 to: d.to
                             }
         				})
-        			}
+        			} else{
+                        fsm.fail()
+                    }
         		},
                 onknowingLocation: function(event, from, to, msg){
                     var entities = msg.entity,
@@ -85,6 +98,7 @@ module.exports = {
                             location = msg.words.slice(entity[0], entity[1]).join('')
                         }
                     })
+
                     fsm.sendRequest({
                         location: location,
                         action: msg.action,
