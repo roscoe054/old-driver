@@ -5,14 +5,22 @@ var host = 'http://115.159.119.199:8080/'
 
 module.exports = {
 	check: function(fsmRes, callback) {
-        var resultStr = '可用房间（' + fsmRes.location + '）：\n',
+        var resultStr = '可用房间',
             time = fsmRes.time
+
+		resultStr += fsmRes.location ? fsmRes.location : ''
+		resultStr += '\n'
 
 		requestGet(host + 'getRoomList', {
 			site: 1,
 			from: time.from.format('x'),
 			to: time.to.format('x')
 		}, function(roomList) {
+			if(!roomList || roomList.length === 0){
+				callback('找不到可用会议室(´_ゝ`)')
+				return
+			}
+
 			async.each(roomList, function(room, itemCallback) {
                 requestGet(host + 'getRoomInfo', {
         			roomId: room.roomId,

@@ -48,7 +48,7 @@ schedule.init(api)
 // msgHandler({
 // 	weixin: {
 // 		MsgType: 'voice',
-// 		Recognition: '你是谁'
+// 		Recognition: '查看明天上午的会议室'
 // 	}
 // }, {
 // 	reply: function(msg){
