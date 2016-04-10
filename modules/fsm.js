@@ -133,8 +133,8 @@ module.exports = {
         function identifyTime(d, word) {
         	if(!d){
                 d = {
-                    from: moment().minute(0).second(0).millisecond(0),
-                    to: moment().minutes(0).seconds(0).millisecond(0)
+                    from: moment().hour(8).minute(0).second(0).millisecond(0),
+                    to: moment().hour(21).minutes(0).seconds(0).millisecond(0)
                 }
             }
             switch (word) {
